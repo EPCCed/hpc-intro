@@ -1,0 +1,23 @@
+# Workshop specific values
+####################################################
+# EPCC: ARCHER2 + SLURM
+# 
+host_name: "ARCHER2"
+host_login: "login.archer2.ac.uk"
+host_location: "EPCC, University of Edinburgh"
+host_homedir: "/home/t01/t01/yourUsername"
+host_prompt: "[yourUsername@archer2-login1 ~]$"
+local_prompt: "[user@laptop ~]$"
+sched_name: "SLURM"
+sched_submit: "sbatch"
+sched_submit_options: ""
+sched_status: "squeue"
+sched_flag_user: "-u yourUsername"
+sched_del: "scancel"
+sched_interactive: "srun"
+sched_flag_interactive: ""
+sched_info: "sinfo"
+sched_comment: "#SBATCH"
+sched_flag_name: "-J"
+sched_hist: "sacct -u yourUsername"
+sched_flag_histdetail: "-l -j"
