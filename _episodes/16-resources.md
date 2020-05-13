@@ -1,7 +1,7 @@
 ---
 title: "Using resources effectively"
-teaching: 15
-exercises: 10
+teaching: 5
+exercises: 20
 questions:
 - "How do we monitor our jobs?"
 - "How can I get my jobs scheduled more easily?" 
@@ -12,173 +12,142 @@ keypoints:
 - "The smaller your job, the faster it will schedule."
 ---
 
-We now know virtually everything we need to know about getting stuff on a cluster. We can log on,
-submit different types of jobs, use preinstalled software, and install and use software of our own.
-What we need to do now is use the systems effectively.
+We now know virtually everything we need to know about getting stuff onto and using a cluster.
+We can log on, submit different types of jobs, use preinstalled software, and install and use
+software of our own. What we need to do now is use the systems effectively. To do this we need
+to understand the basics of *benchmarking*. Benchmarking is essentially performing simple 
+experiments to help understand how the performance of our work varies as we change the
+properties of the jobs on the cluster - including input parameters, job options and resources used.
 
-## Estimating required resources using the scheduler
+> ## Our example
+> In the rest of this episode, we will use an example parallel application that sharpens
+> an input image. Although this is a toy problem, it exhibits all the properties of a full
+> parallel application that we are interested in for this course.
+{: .callout}
 
-Although we covered requesting resources from the scheduler earlier, how do we know how much and
-what type of resources we will need in the first place?
+## Accessing the software and input
 
-Answer: we don't. Not until we've tried it ourselves at least once. We'll need to benchmark our job
-and experiment with it before we know how much it needs in the way of resources.
-
-The most effective way of figuring out how much resources a job needs is to submit a test job, and
-then ask the scheduler how many resources it used.
-
-A good rule of thumb is to ask the scheduler for more time and memory than you expect your job to
-need. This ensures that minor fluctuations in run time or memory use will not result in your job
-being canceled by the scheduler. Recommendations for how much extra to ask for vary but 10% is 
-probably the minimum, with 20-30% being more typical. Keep in mind that if you ask for too much,
-your job may not run even though enough resources are available, because the scheduler will be
-waiting to match what you asked for.
-
-{% include /snippets/16/bench.snip %}
-
-Once the job completes (note that it takes much less time than expected), we can query the 
-scheduler to see how long our job took and what resources were used. We will use `{{ site.sched_hist }}` to
-get statistics about our job.
+The `sharpen` application has been preinstalled on Cirrus, you can access it with the 
+command:
 
 ```
-{{ site.host_prompt }} {{ site.sched_hist }}
+module load epcc-training/sharpen
 ```
-{: .bash}
+
+Once you have loaded the module, you can access the program as `sharpen`. You will also
+need to get a copy of the input file for this example. To do this, copy it from the 
+central install location to your directory with (note you must have loaded the 
+sharpen module as described above for this to work):
+
+```
+{{ site.host_prompt }} cp $TRAINING_SHARPEN/fuzzy.pgm .
+```
+{: .language-bash}
+
+## Baseline: running in serial
+
+Before starting to benchmark an application to understand what resources are best to use to
+run it you need a *baseline* performance result. In more formal benchmarking, your baseline
+is usually the minimum number of cores or nodes you can run on. However, for understanding
+how best to use resources, as we are doing here, your baseline could be the performance on
+any number of cores or nodes that you can measure the change in performance from.
+
+Our `sharpen` application is small enough that we can run a serial (i.e. using a single core)
+job for our baseline performance so that is where we will start
+
+> ## Run a single core job
+> Write a job submission script that runs the `sharpen` application on a single core. You
+> will need to take an initial guess as to the walltime to request to give the job time 
+> to complete. Submit the job and check the contents of the STDOUT file to see if the 
+> application worked or not.
+{: .challenge}
+
+Once your job has run, you should look in the output to identify the performance. Most 
+HPC programs should print out timing or performance information (usually somewhere near
+the bottom of the summary output) and `sharpen` is no exception. You should see two 
+lines in the output that look something like:
+
+```
+Calculation time was 5.579000 seconds
+Overall run time was 5.671895 seconds
+```
+
+You can also get an estimate of the overall run time from the final job statistics. If
+we look at how long the finished job ran for, this will provide a quick way to see
+roughly what the runtime was. This can be useful if you want to know quickly if a 
+job was faster or not than a previous job (as oyu do not have to find the output file
+to look up the performance) but the number is not as accurate as the performance recorded
+by the application itself and also includes static overheads from running the job
+(such as loading modules and startup time) that can skew the timings. To do this on
+Cirrus use `qstat` with the `-x` option and the job ID:
+
+```
+{{ site.host_prompt }} {{ site.sched_hist }} 12345
+```
+{: .language-bash}
 ```
 {% include /snippets/16/stat_output.snip %}
 ```
 {: .output}
 
-This shows all the jobs we ran recently (note that there are multiple entries per job). To get
-detailed info about a job, we change command slightly.
-
-```
-{{ site.host_prompt }} {{ site.sched_hist }} {{ site.sched_flag_histdetail }} 1965
-```
-{: .bash}
-
-It will show a lot of info, in fact, every single piece of info collected on your job by the
-scheduler. It may be useful to redirect this information to `less` to make it easier to view (use
-the left and right arrow keys to scroll through fields).
-
-```
-{{ site.host_prompt }} {{ site.sched_hist }} {{ site.sched_flag_histdetail }} 1965| less
-```
-{: .bash}
-
-Some interesting fields include the following:
-
-* **Hostname** - Where did your job run?
-* **MaxRSS** - What was the maximum amount of memory used?
-* **Elapsed** - How long did the job take?
-* **State** - What is the job currently doing/what happened to it?
-* **MaxDiskRead** - Amount of data read from disk.
-* **MaxDiskWrite** - Amount of data written to disk.
-
-## Measuring the statistics of currently running tasks
-
-> ## Connecting to Nodes
-> Typically, clusters allow users to connect directly to compute nodes from the head 
-> node. This is useful to check on a running job and see how it's doing, but is not
-> a recommended practice in general, because it bypasses the resource manager.
-> If you need to do this, check where a job is running with `{{ site.sched_status }}`, then
-> run `ssh nodename`. (Note, this may not work on all clusters.)
+> ## Viewing the sharpened output image
+> To see the effect of the sharpening algorithm, you can view the images using the display
+> program from the ImageMagick suite.
+> ```
+> display sharpened.pgm
+> ```
+> Type `q` in the image window to close the program. To view the image you will need an X
+> window client installed and you will have to have logged into Cirrus with the `ssh -Y`
+> option to export the display back to your local system. If you are using Windows, the 
+> MobaXterm program provides a login shell with X capability. If you are using macOS, then
+> you will need to install XQuartz. If you are using Linux then X should just work!
 {: .callout}
-  
-We can also check on stuff running on the login node right now the same way (so it's 
-not necessary to `ssh` to a node for this example).
 
-### top
+## Running in parallel and benchmarking performance
 
-The best way to check current system stats is with `top` (`htop` is a prettier version of `top` but
-may not be available on your system).
+We have now managed to run the `sharpen` application using a single core and have a baseline
+performance we can use to judge how well we are using resources on the system.
 
-Some sample output might look like the following (`Ctrl + c` to exit):
+Note that we also now have a good estimate of how long the application takes to run so we can
+provide a better setting for the walltime for future jobs we submit. Lets now look at how
+the runtime varies with core count.
 
-```
-{{ site.host_prompt }} top
-```
-{: .bash}
-```
-{% include /snippets/16/top_output.snip %}
-```
-{: .output}
+> ## Benchmarking the parallel performance
+> Modify your job script to run on multiple cores and evaluate the performance of `sharpen`
+> on a variety of different core counts and use multiple runs to complete the table below.
+>
+> If you examine the log file you will see that it contains two timings: the total time taken by the
+> entire program (including IO) and the time taken solely by the calculation. The image input
+> and output is not parallelised so this is a serial overhead, performed by a single processor.
+> The calculation part is, in theory, perfectly parallel (each processor operates on different parts
+> of the image) so this should get faster on more cores. The IO time in the table below is the
+> difference between the calculation time and the overall run time; the total core seconds is the
+> *calculation time* multiplied by the number of cores.
+> 
+> | Cores      | Overall run time (s) | Calculation time (s) | IO time (s) | Total core seconds |
+> |------------|----------------------|----------------------|-------------|--------------------|
+> | 1 (serial) |                      |                      |             |                    |
+> | 2          |                      |                      |             |                    |
+> | 4          |                      |                      |             |                    |                    
+> | 8          |                      |                      |             |                    | 
+> | 18         |                      |                      |             |                    | 
+> | 36         |                      |                      |             |                    | 
+> | 72         |                      |                      |             |                    |              
+> | 144        |                      |                      |             |                    | 
+>
+> Look at your results – do they make sense? Given the structure of the code, you would
+> expect the IO time to be roughly constant, and the performance of the calculation to increase
+> linearly with the number of cores: this would give a roughly constant figure for the total CPU
+> time. Is this what you observe?
+>
+> - What do you think a good core count choice would be for this application to use for runs on
+>   Cirrus which would use resources efficiently?
+> - What is the core count where you get the **most** efficient use of resources, irrespective
+>   of run time?
+>
+{: .challenge}
 
-Overview of the most important fields:
 
-* `PID` - What is the numerical id of each process?
-* `USER` - Who started the process?
-* `RES` - What is the amount of memory currently being used by a process (in bytes)?
-* `%CPU` - How much of a CPU is each process using? Values higher than 100 percent indicate that a
-  process is running in parallel.
-* `%MEM` - What percent of system memory is a process using?
-* `TIME+` - How much CPU time has a process used so far? Processes using 2 CPUs accumulate time at
-  twice the normal rate.
-* `COMMAND` - What command was used to launch a process?
 
-### free
-
-Another useful tool is the `free -h` command. This will show the currently used/free amount of
-memory.
-
-```
-{{ site.host_prompt }} free -h
-```
-{: .bash}
-```
-{% include /snippets/16/free_output.snip %}
-```
-{: .output}
-
-The key fields here are total, used, and available - which represent the amount of memory that the
-machine has in total, how much is currently being used, and how much is still available. When a
-computer runs out of memory it will attempt to use "swap" space on your hard drive instead. Swap
-space is very slow to access - a computer may appear to "freeze" if it runs out of memory and 
-begins using swap. However, compute nodes on HPC systems usually have swap space disabled so when
-they run out of memory you usually get an "Out Of Memory (OOM)" error instead.
-
-### ps 
-
-To show all processes from your current session, type `ps`.
-
-```
-{{ site.host_prompt }} ps
-```
-{: .bash}
-```
-  PID TTY          TIME CMD
-15113 pts/5    00:00:00 bash
-15218 pts/5    00:00:00 ps
-```
-{: .output}
-
-Note that this will only show processes from our current session. To show all processes you own
-(regardless of whether they are part of your current session or not), you can use `ps ux`.
-
-```
-{{ site.host_prompt }} ps ux
-```
-{: .bash}
-```
-USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-auser  67780  0.0  0.0 149140  1724 pts/81   R+   13:51   0:00 ps ux
-auser  73083  0.0  0.0 142392  2136 ?        S    12:50   0:00 sshd: auser@pts/81
-auser  73087  0.0  0.0 114636  3312 pts/81   Ss   12:50   0:00 -bash
-```
-{: .output}
-
-This is useful for identifying which processes are doing what.
-
-## Killing processes
-
-To kill all of a certain type of process, you can run `killall commandName`. `killall rsession`
-would kill all `rsession` processes created by RStudio, for instance. Note that you can only kill
-your own processes.
-
-You can also kill processes by their PIDs using `kill 1234` where `1234` is a `PID`. Sometimes
-however, killing a process does not work instantly. To kill the process in the most hardcore manner
-possible, use the `-9` flag. It's recommended to kill using without `-9` first. This gives a 
-process the chance to clean up child processes, and exit cleanly. However, if a process just isn't
-responding, use `-9` to kill it instantly.
 
 {% include links.md %}
