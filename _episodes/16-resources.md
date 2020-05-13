@@ -25,6 +25,16 @@ properties of the jobs on the cluster - including input parameters, job options 
 > parallel application that we are interested in for this course.
 {: .callout}
 
+Before we work on benchmarking, it is useful to define some terms for the example we will
+be using
+
+  - **Program** The computer program we are executing (`sharpen` in the examples below)
+  - **Application** The combination of computer program with particular input paramemters
+     (`sharpen` with `fuzzy.pgm` in our example below)
+  - **Ideal speedup** The expected speedup if the application showed perfect scaling. i.e. if
+    you double the number of cores, the application should run twice as fast
+  - **Parallel efficiency** The percentage of *ideal speedup* obtained for a given core count
+
 ## Accessing the software and input
 
 The `sharpen` application has been preinstalled on Cirrus, you can access it with the 
@@ -147,7 +157,9 @@ the runtime varies with core count.
 >
 {: .challenge}
 
+**TODO:** Talk about plotting performance and calculating parallel efficiency
 
+**TODO:** Add in conclusions
 
 
 {% include links.md %}
