@@ -1,0 +1,11 @@
+> > #!/bin/bash
+> > #SBATCH --job-name=sharpen
+> > #SBATCH --nodes=1
+> > #SBATCH --ntasks-per-node=128
+> > #SBATCH --time=0:15:0
+> > #SBATCH --account=t01
+> > 
+> > module load sharpen
+> >
+> > # Run application using a single process (i.e. in serial)
+> > srun -n 1 sharpen

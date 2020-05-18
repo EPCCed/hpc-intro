@@ -1,0 +1,75 @@
+> ## Computing the speedup and parallel efficiency
+>
+> Use your *Overall run times* from above to fill in a table like the one below.
+>
+> | Cores      | Overall run time (s) | Ideal speedup | Actual speedup | Parallel efficiency |
+> |------------|----------------------|---------------|----------------|---------------------|
+> | 1 (serial) |                      |               |                |                     |
+> | 2          |                      |               |                |                     |
+> | 4          |                      |               |                |                     |                   
+> | 8          |                      |               |                |                     | 
+> | 16         |                      |               |                |                     |
+> | 32         |                      |               |                |                     |
+> | 64         |                      |               |                |                     |             
+> | 128        |                      |               |                |                     |
+> | 256        |                      |               |                |                     |
+>
+> Given your results, try to answer the following questions:
+> 
+> 1. What is the core count where you get the **most** efficient use of resources, irrespective
+>   of run time?
+> 2. What is the core count where you get the fastest solution, irrespective of efficiency?
+> 3. What do you think a good core count choice would be for this application that balances
+>    time to solution and efficiency? Why did you choose this option?
+>
+> > ## Solution
+> >
+> > The table below gives example results for {{ site.host_name }} based on the example 
+> > runtimes given in the solution above.
+> >
+> > | Cores      | Overall run time (s) | Ideal speedup | Actual speedup | Parallel efficiency |
+> > |------------|----------------------|---------------|----------------|---------------------|
+> > | 1 (serial) |                      |               |                |                     |
+> > | 2          |                      |               |                |                     |
+> > | 4          |                      |               |                |                     |                   
+> > | 8          |                      |               |                |                     | 
+> > | 16         |                      |               |                |                     |
+> > | 32         |                      |               |                |                     |
+> > | 64         |                      |               |                |                     |             
+> > | 128        |                      |               |                |                     |
+> > | 256        |                      |               |                |                     |
+> >
+> > ### What is the core count where you get the **most** efficient use of resources?
+> >
+> > Just using a single core is the cheapest (and always will be unless your speedup is better
+> > than perfect – “super-linear” speedup). However, it may not be possible to run on small
+> > numbers of cores depending on how much memory you need or other technical constraints.
+> >
+> > **Note:** on most high-end systems, nodes are not shared between users. This means you are
+> > charged for all the CPU-cores on a node regardless of whether you actually use them. Typically
+> > we would be running on many hundreds of CPU-cores not a few tens, so the real question in
+> > practice is: what is the optimal number of nodes to use?
+> >
+> > ### What is the core count where you get the fastest solution, irrespective of efficiency?
+> >
+> > 128 cores gives the fastest time to solution.
+> >
+> > The fastest time to solution does not often make the most efficient use of resources so 
+> > to use this option, you may end up wasting your resources. Sometimes, when there is 
+> > time pressure to run the calculations, this may be a valid approach to running 
+> > applications.
+> >
+> > ### What do you think a good core count choice would be for this application to use?
+> > 
+> > 64 cores is probably the most efficient number of cores to use with a 
+> > parallel efficiency of 70%.
+> >
+> > Usually, the best choice is one that delivers good parallel efficiency with an acceptable
+> > time to solution. Note that *acceptable time to solution* differs depending on circumstances
+> > so this is something that the individual researcher will have to assess. Good parallel
+> > efficiency is often considered to be 70% or greater though many researchers will be happy
+> > to run in a regime with parallel efficiency greater than 60%. As noted above, running with
+> > worse parallel efficiency may also be useful if the time to solution is an overriding factor.
+> >
+> {: .solution}
+{: .challenge}

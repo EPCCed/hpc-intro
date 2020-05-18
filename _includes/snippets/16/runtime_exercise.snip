@@ -1,0 +1,47 @@
+> ## Benchmarking the parallel performance
+> Modify your job script to run on multiple cores and evaluate the performance of `sharpen`
+> on a variety of different core counts and use multiple runs to complete a table like the one
+> below.
+>
+> If you examine the log file you will see that it contains two timings: the total time taken by the
+> entire program (including IO) and the time taken solely by the calculation. The image input
+> and output is not parallelised so this is a serial overhead, performed by a single processor.
+> The calculation part is, in theory, perfectly parallel (each processor operates on different parts
+> of the image) so this should get faster on more cores. The IO time in the table below is the
+> difference between the calculation time and the overall run time; the total core seconds is the
+> *calculation time* multiplied by the number of cores.
+> 
+> | Cores      | Overall run time (s) | Calculation time (s) | IO time (s) | Total core seconds |
+> |------------|----------------------|----------------------|-------------|--------------------|
+> | 1 (serial) |                      |                      |             |                    |
+> | 2          |                      |                      |             |                    |
+> | 4          |                      |                      |             |                    |                    
+> | 8          |                      |                      |             |                    | 
+> | 16         |                      |                      |             |                    | 
+> | 32         |                      |                      |             |                    | 
+> | 64         |                      |                      |             |                    |              
+> | 128        |                      |                      |             |                    | 
+> | 256        |                      |                      |             |                    |
+> 
+> Look at your results – do they make sense? Given the structure of the code, you would
+> expect the IO time to be roughly constant, and the performance of the calculation to increase
+> linearly with the number of cores: this would give a roughly constant figure for the total core
+> time. Is this what you observe?
+> > ## Solution
+> >
+> > The table below shows example timings for runs on {{ site.host_name }}
+> >
+> > | Cores      | Overall run time (s) | Calculation time (s) | IO time (s) | Total core seconds |
+> > |------------|----------------------|----------------------|-------------|--------------------|
+> > | 1 (serial) |                      |                      |             |                    |
+> > | 2          |                      |                      |             |                    |
+> > | 4          |                      |                      |             |                    |                    
+> > | 8          |                      |                      |             |                    | 
+> > | 16         |                      |                      |             |                    | 
+> > | 32         |                      |                      |             |                    | 
+> > | 64         |                      |                      |             |                    |              
+> > | 128        |                      |                      |             |                    | 
+> > | 256        |                      |                      |             |                    |
+> >
+> {: .solution}
+{: .challenge}

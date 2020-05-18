@@ -1,0 +1,16 @@
+The `sharpen` program has been preinstalled on {{ site.host_name }}, you can access it with the 
+command:
+
+```
+module load epcc-training/sharpen
+```
+
+Once you have loaded the module, you can access the program as `sharpen`. You will also
+need to get a copy of the input file for this application. To do this, copy it from the 
+central install location to your directory with (note you must have loaded the 
+sharpen module as described above for this to work):
+
+```
+{{ site.host_prompt }} cp $TRAINING_SHARPEN/fuzzy.pgm .
+```
+{: .language-bash}
