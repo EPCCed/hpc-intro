@@ -261,4 +261,50 @@ tasks as a one-off with `{{ site.sched_interactive }}`.
 
 {% include /snippets/13/interactive_example.snip %}
 
+## Running parallel jobs using MPI
+
+As we have already seen, the power of HPC systems comes from *parallelism*, i.e. having lots of
+processors/disks etc. connected together rather than having more powerful components than your
+laptop or workstation. Often, when running research programs on HPC you will need to run a
+program that has been built to use the MPI (Message Passing Interface) parallel library. The MPI
+library allows programs to exploit multiple processing cores in parallel to allow researchers
+to model or simulate faster on larger problem sizes. The details of how MPI work are not important
+for this course or even to use programs that have been built using MPI; however, MPI programs 
+typically have to be launched in job submission scripts in a different way to serial programs and
+users of parallel programs on HPC systems need to know how to do this. Specifically, launching
+parallel MPI programs typically requires four things:
+
+  - A special parallel launch program such as `mpirun`, `mpiexec`, `srun` or `aprun`.
+  - A specification of how many processes to use in parallel. For example, our parallel program
+    may use 256 processes in parallel.
+  - A specification of how many parallel processes to use per compute node. For example, if our
+    compute nodes each have 32 cores we often want to specify 32 parallel processes per node.
+  - The command and arguments for our parallel program.
+
+To illustrate this process, we will use a simple MPI parallel program that sharpens an image.
+(We will meet this example program in more detail in a later episode.) Here is a job submission
+script that runs the sharpen program across two compute nodes on the cluster.
+
+```
+
+```
+
+The parallel launch line for the sharpen program can be seen towards the bottom of the script:
+
+```
+aprun -n 48 -N 24 sharpen
+```
+
+and this corresponds to the four required items we described above:
+
+  1. Parallel launch program: in this case the parallel launch program is called `aprun`
+  2. Total number of parallel processes: in this case this is 48 (all the cores on two full 
+     compute nodes) and is specified by the `-n 48` option to `aprun`
+  3. Number of parallel processes per node: in this case this is 24 (number of cores on each
+     node) and is specified by the `-N 24` option to `aprun`
+  4. Our program and arguments: in this case this is `sharpen`, the program we want to run. It
+     does not take any arguments.
+
+**TODO:** Add challenge on launching parallel programs
+
 {% include links.md %}
