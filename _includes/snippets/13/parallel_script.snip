@@ -1,0 +1,15 @@
+```
+#!/bin/bash
+#PBS -N Sharpen_MPI
+#PBS -l select=2:ncpus=36
+#PBS -l place=scatter:excl
+#PBS -l walltime=00:10:00
+#PBS -A tc001
+
+# Change to the directory that the job was submitted from
+cd $PBS_O_WORKDIR
+
+module load sharpen
+
+mpiexec_mpt -ppn 36 -n 72 sharpen
+```

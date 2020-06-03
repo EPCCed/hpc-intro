@@ -75,7 +75,7 @@ distinction between running the job through the scheduler and just "running it".
 to the scheduler, we use the `{{ site.sched_submit }}` command.
 
 ```
-[{{ site.host_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options }} example-job.sh
+{{ site.host_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options }} example-job.sh
 ```
 {: .bash}
 ```
@@ -283,28 +283,26 @@ parallel MPI programs typically requires four things:
 
 To illustrate this process, we will use a simple MPI parallel program that sharpens an image.
 (We will meet this example program in more detail in a later episode.) Here is a job submission
-script that runs the sharpen program across two compute nodes on the cluster.
+script that runs the sharpen program across two compute nodes on the cluster. Create a file
+called `run-sharpen.pbs` with the contents of this script in it.
 
-```
-
-```
+{% include /snippets/13/parallel_script.snip %}
 
 The parallel launch line for the sharpen program can be seen towards the bottom of the script:
 
+{% include /snippets/13/parallel_launch_desc.snip %}
+
+As for our other jobs, we launch using the `{{ site.sched_submit }}` command.
+
 ```
-aprun -n 48 -N 24 sharpen
+{{ site.host_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options }} run-sharpen.pbs
 ```
+{: .bash}
+```
+{% include /snippets/13/submit_output.snip %}
+```
+{: .output}
 
-and this corresponds to the four required items we described above:
-
-  1. Parallel launch program: in this case the parallel launch program is called `aprun`
-  2. Total number of parallel processes: in this case this is 48 (all the cores on two full 
-     compute nodes) and is specified by the `-n 48` option to `aprun`
-  3. Number of parallel processes per node: in this case this is 24 (number of cores on each
-     node) and is specified by the `-N 24` option to `aprun`
-  4. Our program and arguments: in this case this is `sharpen`, the program we want to run. It
-     does not take any arguments.
-
-**TODO:** Add challenge on launching parallel programs
+{% include /snippets/13/parallel_challenge.snip %}
 
 {% include links.md %}

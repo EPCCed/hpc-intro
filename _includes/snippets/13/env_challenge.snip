@@ -1,7 +1,8 @@
 > ## Job environment variables
 >
-> When SLURM runs a job, it sets a number of environment variables for the job. One of these will
-> let us check our work from the last problem. The `SLURM_CPUS_PER_TASK` variable is set to the
-> number of CPUs we requested with `-c`. Using the `SLURM_CPUS_PER_TASK` variable, modify your job
-> so that it prints how many CPUs have been allocated.
+> When PBS Pro runs a job, it sets a number of environment variables for the job.
+> One of these will let us check what directory our job script was submitted from.
+> The `PBS_O_WORKDIR` variable is set to the directory from which our job was 
+> submitted.  Using the `PBS_O_WORKDIR` variable, modify your job
+> so that it prints (to stdout) the location from which the job was submitted.
 {: .challenge}

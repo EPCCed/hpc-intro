@@ -1,9 +1,9 @@
-* `-n <nnodes>` - how many nodes does your job need? 
+* `-l select=<nnodes>:ncpus=<ncores per node>` - how many nodes does your job need and how
+  many cores per node? Note that there are 36 cores per node on Cirrus.
 
-* `-c <ncpus>` - How many CPUs does your job need?
+* `-l walltime=<hours:minutes:seconds>` - How much real-world time (walltime) will your job take to
+  run?
 
-* `--mem=<megabytes>` - How much memory on a node does your job need in megabytes? You can also
-  specify gigabytes using by adding a little "g" afterwards (example: `--mem=5g`)
-
-* `--time <days-hours:minutes:seconds>` - How much real-world time (walltime) will your job take to
-  run? The `<days>` part can be omitted.
+* `-l place=scatter:excl` - Reserve your nodes just for yourself. (If you are using full nodes,
+  you should include this as it stops other users from interfering with the performance of your
+  job.)

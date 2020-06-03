@@ -75,27 +75,26 @@ instructor_post_survey: "https://www.surveymonkey.com/r/instructor_training_post
 #     cp -r _extras/snippet_library/EPCC_Cirrus_pbs/* _includes/snippets
 #
 ####################################################
-# EPCC: ARCHER2 + SLURM
-# 
-host_name: "ARCHER2"
-host_login: "login.archer2.ac.uk"
-host_location: "EPCC, University of Edinburgh"
-host_homedir: "/home/t01/t01/yourUsername"
-host_prompt: "[yourUsername@archer2-login1 ~]$"
+# EPCC, The University of Edinburgh: Cirrus + PBS Pro
+host_name: "Cirrus"
+host_login: "login.cirrus.ac.uk"
+host_location: "EPCC, The University of Edinburgh"
+host_homedir: "/lustre/home/tc001/lola"
+host_prompt: "[yourUsername@cirrus-login0 ~]$"
 local_prompt: "[user@laptop ~]$"
-sched_name: "SLURM"
-sched_submit: "sbatch"
-sched_submit_options: ""
-sched_status: "squeue"
+sched_name: "PBS Pro"
+sched_submit: "qsub"
+sched_submit_options: "-A tc001 -q R387726"
+sched_status: "qstat"
 sched_flag_user: "-u yourUsername"
-sched_del: "scancel"
-sched_interactive: "srun"
-sched_flag_interactive: ""
-sched_info: "sinfo"
-sched_comment: "#SBATCH"
-sched_flag_name: "-J"
-sched_hist: "sacct -u yourUsername"
-sched_flag_histdetail: "-l -j"
+sched_del: "qdel"
+sched_interactive: "qsub"
+sched_flag_interactive: "-IVl select=1:ncpus=1"
+sched_info: "pbsnodes -a"
+sched_comment: "#PBS"
+sched_flag_name: "-N"
+sched_hist: "qstat -x"
+sched_flag_histdetail: "-f"
 
 # Interactive queue names, one or more as a list
 workshop_interactive_queues:
