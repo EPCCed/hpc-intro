@@ -76,7 +76,7 @@ instructor_post_survey: "https://www.surveymonkey.com/r/instructor_training_post
 #
 ####################################################
 # EPCC, The University of Edinburgh: ARCHER + PBS Pro
-host_name: "Archer"
+host_name: "eslogin001"
 host_login: "login.archer.ac.uk"
 host_location: "EPCC, The University of Edinburgh"
 host_homedir: "/lustre/home/tc001/lola"
