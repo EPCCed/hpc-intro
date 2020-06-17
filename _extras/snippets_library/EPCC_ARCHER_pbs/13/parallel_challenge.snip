@@ -1,0 +1,29 @@
+> ## Running parallel jobs
+>
+> Modify the sharpen script that you used above to use 3 full nodes rather than 2. Submit the
+> script and check the output to confirm that it used the correct number of cores in parallel
+> for the calculation.
+> 
+> > ## Solution
+> >
+> > We need to change the number of nodes requested to 3 in the PBS options and change the number
+> > of parallel processes to use in the option to the `mpirun` parallel launch command to 
+> > 108 (3 * 36 cores per node). Here is the fully modified script
+> > 
+> > ```
+> > #!/bin/bash
+> > #PBS -N Sharpen_MPI
+> > #PBS -l select=2:ncpus=36
+> > #PBS -l place=scatter:excl
+> > #PBS -l walltime=00:10:00
+> > #PBS -A tc001
+> >
+> > # Change to the directory that the job was submitted from
+> > cd $PBS_O_WORKDIR
+> > 
+> > module load sharpen
+> > 
+> > mpiexec_mpt -ppn 36 -n 72 sharpen
+> > ```
+> {: .solution}
+{: .challenge}

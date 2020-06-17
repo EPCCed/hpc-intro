@@ -1,0 +1,11 @@
+> > #!/bin/bash
+> > #PBS -N sharpen
+> > #PBS -l select=1:ncpus=36
+> > #PBS -l place=scatter:excl
+> > #PBS -l walltime=0:15:0
+> > #PBS -A t01
+> > 
+> > module load sharpen
+> >
+> > # Run application using a single process (i.e. in serial)
+> > mpirun -n 1 sharpen
