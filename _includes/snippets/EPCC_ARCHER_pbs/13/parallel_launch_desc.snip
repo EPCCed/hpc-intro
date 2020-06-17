@@ -1,0 +1,13 @@
+```
+mpirun -ppn 36 -n 72 sharpen
+```
+
+and this corresponds to the four required items we described above:
+
+  1. Parallel launch program: in this case the parallel launch program is called `mpirun`
+  2. Total number of parallel processes: in this case this is 72 (all the cores on two full 
+     compute nodes) and is specified by the `-n 72` option to `mpirun`
+  3. Number of parallel processes per node: in this case this is 36 (number of cores on each
+     node) and is specified by the `-ppn 36` option to `mpirun`
+  4. Our program and arguments: in this case this is `sharpen`, the program we want to run. It
+     does not take any arguments.
