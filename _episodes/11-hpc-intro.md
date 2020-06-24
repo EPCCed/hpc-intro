@@ -11,10 +11,10 @@ objectives:
 keypoints:
 - "High Performance Computing (HPC) typically involves connecting to very large computing systems
   elsewhere in the world."
-- "These other systems can be used to do work that would either be impossible or much slower or
+- "These other systems can be used to do work that would either be impossible or much slower on
   smaller systems."
 - "The standard method of interacting with such systems is via a command line interface called
-  Bash."
+  **bash** which runs on the remote server; you therefore have to log in to your own user account on the server."
 ---
 
 Frequently, research problems that use computing can outgrow the desktop or laptop computer where
@@ -34,8 +34,7 @@ they started:
 In all these cases, what is needed is access to more computer
 power. Since it is not feasible to significantly increase the power of
 a single computer, the solution is to use multiple computers at the
-same time. One of doing this is to build a *cluster*, where we network
-may dedicated computers together and treat it as a single resource.
+same time.
 
 > # And what do you do?
 > 
@@ -58,7 +57,6 @@ Let's dissect what resources programs running on a laptop require:
 - the keyboard and/or touchpad is used to tell the computer what to do (**Input**)
 - the internal computing resources **Central Processing Unit (CPU_** and **Memory** are used to perform calculations
 - the **Screen Display** depicts progress and results (**Output**)
-
 - alternatvely, both input and output can come from data stored on **Disk** or on a **Network**
 
 Schematically, this can be reduced to the following:
@@ -72,34 +70,33 @@ alt="Schematic of how a computer works" caption="" %}
 When the task to solve become heavy on computations, the operations are typically out-sourced 
 from the local laptop or desktop to elsewhere. Take for example the task to find the directions for
 your next business trip. The capabilities of your laptop are typically not enough to calculate 
-that route spontaneously. So you use website, which in turn runs on a server that is almost 
-exclusively not in the same room as you are.
+that route in real time,  so you use a website, which in turn runs on a computer that is almost always a machine that is not in the same room as you are. Such a remote machine is generically called a **server**.
 
 {% include figure.html url="" max-width="20%" file="/fig/servers-openclipartorg-ericlemerdy.svg" 
 alt="A rack half full with servers" caption="" %}
 
-Note here, that a server is mostly a noisy computer mounted into a rack cabinet which in turn 
-resides in a data center. The internet made it possible that these data centers do not require to 
-be nearby your laptop. What people call **the cloud** is mostly a web-service where you can rent 
-such servers by providing your credit card details and by clicking together the specs of this 
+Note here, that a server is typically a noisy computer mounted into a rack cabinet which in turn 
+resides in a data centre. The internet made it possible for these data centers to be far remote from your laptop. What people call **the cloud** is mostly a web-service where you can rent 
+such servers by providing your credit card details and by clicking together the specs of a 
 remote resource.
 
 The server itself has no direct display or input methods attached to it. But most importantly, it 
-has much more storage, memory and compute capacity than your laptop will ever have. In any case,
-you need a local device (laptop, workstation, mobile phone or tablet) to interact with this remote 
-machine, people typically call 'a server'. 
+has much more storage, memory and compute capacity than your laptop will ever have. However, you still
+need a local device (laptop, workstation, mobile phone or tablet) to interact with this remote 
+machine.
 
 ## When one server is not enough
 
-If the computational task or analysis to complete is daunting for a single server, larger 
-agglomerations of servers are used. These go by the name of clusters or super computers.
+If the computational task or analysis to complete is daunting for a
+single server, larger agglomerations of servers are used. These go by
+the name of clusters or supercomputers.
 
 {% include figure.html url="" max-width="20%" 
 file="/fig/serverrack-openclipartorg-psteinb-basedon-ericlemerdy.svg" alt="A rack with servers"
 caption="" %}
 
 The methodology of providing the input data, communicating options and flags as well as retrieving
-the results is quite opposite to using a plain laptop. Moreover, using a GUI style interface is 
+the results is quite different to using a plain laptop. Moreover, using a GUI style interface is 
 often discarded in favor of using the command line. This imposes a double paradigm shift for 
 prospect users:
 
@@ -109,7 +106,7 @@ prospect users:
 > # I've never used a server, have I?
 > 
 > Take a minute and think about which of your daily interactions with a computer may require a 
-> remote server or even cluster to provide you with results. 
+> remote server or cluster of servers to provide you with results. 
 {: .challenge }
 
 {% include links.md %}
