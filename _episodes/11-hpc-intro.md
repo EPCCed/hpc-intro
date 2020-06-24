@@ -14,7 +14,8 @@ keypoints:
 - "These other systems can be used to do work that would either be impossible or much slower on
   smaller systems."
 - "The standard method of interacting with such systems is via a command line interface called
-  **bash** which runs on the remote server; you therefore have to log in to your own user account on the server."
+  **bash** which runs on the remote server."
+- "You first have to log in to your personal user account on the server."
 ---
 
 Frequently, research problems that use computing can outgrow the desktop or laptop computer where
