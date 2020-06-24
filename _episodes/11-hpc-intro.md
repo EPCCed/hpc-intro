@@ -31,7 +31,11 @@ they started:
   haven't used this option on their desktop, but in going from 2D to 3D simulations, simulation 
   time has more than tripled and it might be useful to take advantage of that feature.
 
-In all these cases, what is needed is access to more computers than can be used at the same time.
+In all these cases, what is needed is access to more computer
+power. Since it is not feasible to significantly increase the power of
+a single computer, the solution is to use multiple computers at the
+same time. One of doing this is to build a *cluster*, where we network
+may dedicated computers together and treat it as a single resource.
 
 > # And what do you do?
 > 
@@ -52,8 +56,10 @@ Today, people coding or analysing data typically work with laptops.
 
 Let's dissect what resources programs running on a laptop require:
 - the keyboard and/or touchpad is used to tell the computer what to do (**Input**)
-- the internal computing resources **Central Processing Unit** and **Memory** perform calculation
-- the display depicts progress and results (**Output**)
+- the internal computing resources **Central Processing Unit (CPU_** and **Memory** are used to perform calculations
+- the **Screen Display** depicts progress and results (**Output**)
+
+- alternatvely, both input and output can come from data stored on **Disk** or on a **Network**
 
 Schematically, this can be reduced to the following:
 
