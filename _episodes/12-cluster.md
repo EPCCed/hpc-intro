@@ -204,11 +204,18 @@ be telling the whole truth!
 > Gigabyte etc. 
 > 
 > History and common language have however mixed this notation with a different meaning. 
-> When people say "Kilobyte", they mean 1024 Bytes instead. In that spirit, a Megabyte are 
+> When people say "Kilobyte", they oftenmean 1024 Bytes instead. In that spirit, a Megabyte usually means 
 > 1024 Kilobytes. To address this ambiguity, the [International System of 
 > Quantities](https://en.wikipedia.org/wiki/International_System_of_Quantities) 
 > standardizes the binary prefixes (with base of 1024) by the prefixes kibi, mibi, gibi,
 >  etc. For more details, see [here](https://en.wikipedia.org/wiki/Binary_prefix)
+> 
+> This confusion is due to a numerical coincidence. Computers count in
+> binary (base 2), so for a computer it is natural that memory sizes
+> should increase by factors of 2, i.e. $2^1$ = 2 bytes, $2^2$ = 4
+> bytes, $2^3$ = 8 bytes, ... Rather remarkably, $2^10$ = 1024 is
+> remarkably close to what us 10-fingered humans consider to be a nice
+> round number of $10^3$ = 1000.
 {: .callout}
 
 > ## Differences Between Nodes
