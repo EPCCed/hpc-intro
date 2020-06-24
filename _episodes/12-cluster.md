@@ -49,12 +49,14 @@ permissions for on the cluster.
 > On Linux and/or macOS, the `ssh` command line utility is almost always pre-installed. Open a
 > terminal and type `ssh --help` to check if that is the case. 
 > 
-> At the time of writing, the openssh support on Microsoft is still very 
-> [recent](https://blogs.msdn.microsoft.com/powershell/2017/12/15/using-the-openssh-beta-in-windows-10-fall-creators-update-and-windows-server-1709/). 
-> Alternatives to this are [putty](http://www.putty.org), 
+> At the time of writing, using openssh on Windows still requires some
+> [manual setup]
+> (https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_overview).
+> There are a number of alternatives to this (e.g. [putty](http://www.putty.org), 
 > [bitvise SSH](https://www.bitvise.com/ssh-client-download), 
-> [mRemoteNG](https://mremoteng.org/) or [MobaXterm](https://mobaxterm.mobatek.net/). 
-> Download it, install it and open the GUI. The GUI asks for your user name and the destination
+> [mRemoteNG](https://mremoteng.org/)) but the simplest to use is probably [MobaXterm](https://mobaxterm.mobatek.net/). As well as enabling command-line access via a terminal, MobaXterm also includes a drag-and-drop file transfer GUI and integrated Unix graphics.
+>
+> Download MobaXterm, install it and open the GUI. The GUI asks for your user name and the destination
 > address or IP of the computer you want to connect to. Once provided, you will be queried for 
 > your password just like in the example above.
 {: .callout}
