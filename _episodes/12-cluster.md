@@ -212,10 +212,10 @@ be telling the whole truth!
 > 
 > This confusion is due to a numerical coincidence. Computers count in
 > binary (base 2), so for a computer it is natural that memory sizes
-> should increase by factors of 2, i.e. $`2^1`$ = 2 bytes, $`2^2`$ = 4
-> bytes, $`2^3`$ = 8 bytes, ... Rather remarkably, $`2^10`$ = 1024 is
-> remarkably close to what us 10-fingered humans consider to be a nice
-> round number of $`10^3`$ = 1000.
+> should increase by factors of 2, i.e. `2^1` = 2 bytes, `2^2` = 4
+> bytes, `2^3` = 8 bytes, ... Rather remarkably, `2^10` = 1024 is
+> very close to what us 10-fingered humans consider to be a nice
+> round number of `10^3` = 1000.
 >
 > Computing would all seem a lot simpler if evolution had given us all 3 fingers and a thumb ...
 {: .callout}
