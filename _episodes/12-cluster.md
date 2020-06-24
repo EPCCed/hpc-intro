@@ -79,6 +79,10 @@ notice that the current hostname is also part of our prompt!)
 ```
 {: .output}
 
+You may see a slightly different name from the one above, e.g. there
+might be a different numerical suffix. This is because your ssh
+connection may be directed to a range different computers to balance
+the load with many interactive users on large clusters.
 
 ## Nodes
 
@@ -94,7 +98,7 @@ many shapes and sizes, but generally are dedicated to long or hard tasks that re
 computational resources.
 
 All interaction with the worker nodes is handled by a specialized piece of software called a
-scheduler (the scheduler used in this lesson is called {{ site.workshop_shed_name }}). We'll
+scheduler (the scheduler used in this lesson is called {{ site.workshop_sched_name }}). We'll
 learn more about how to use the scheduler to submit jobs next, but for now, it can also tell us
 more information about the worker
 nodes.
@@ -129,11 +133,19 @@ the computer's memory. Disk refers to all storage that can be accessed like a fi
 generally storage that can hold data permanently, i.e. data is still there even if the computer has
 been restarted.
 
+On smaller systems there will be a separate physical disk on each
+node, just like the hard drive on your own laptop; on larger systems,
+all the nodes share storage on a central disk storage system.
+
 {% include figure.html url="" max-width="40%" file="/fig/node_anatomy.png" alt="Node anatomy" caption="" %}
 
 > ## Explore Your Computer
 >
 > Try to find out the number of CPUs and amount of memory available on your personal computer.
+
+This can be surprisinglt challenging due to modern innovations such as
+*multicore* CPUs and *hyper-threading*. Your operating system may not
+be telling the whole truth!
 {: .challenge}
 
 > ## Explore The Head Node
