@@ -232,13 +232,15 @@ This means that one user cannot  mess up the experience of others, the only jobs
 mistake in scheduling will be their
 own.
 
+> ## But how much does it cost?
 > Although your job will be killed if it exceeds the selected runtime,
 > a job that completes within the time limit is only charged for the
 > time it actually used. However, you should always try and specify a
 > wallclock limit that is close to (but greater than!) the expected
 > runtime as this will enable your job to be scheduled more
-> quickly. If you say your job will run for an hour, the scheduler has
-> to wait until a full hour becomes free on the machine. If it only
+> quickly.
+> If you say your job will run for an hour, the scheduler has
+> to wait until a full hour becomes free on the machine. If it only ever
 > runs for 5 minutres, you could have set a limit of 10 minutes and it
 > might have been run earlier in the gaps between other users' jobs.
 {: .callout}
