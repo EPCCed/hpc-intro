@@ -8,7 +8,7 @@
 # Change to the directory that the job was submitted from
 cd $PBS_O_WORKDIR
 
-module load sharpen
+module load epcc-training/sharpen
 
 aprun -n 48 -N 24 ./sharpen
 ```
