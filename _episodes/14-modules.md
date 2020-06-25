@@ -209,6 +209,7 @@ As an example we will install the bioinformatics toolkit `seqtk`. We'll first ne
 source code from GitHub using `git`.
 
 ```
+{{ site.host_prompt }} module switch openssl openssl/1.1.1c_build1
 {{ site.host_prompt }} git clone https://github.com/lh3/seqtk.git
 ```
 {: .bash}
