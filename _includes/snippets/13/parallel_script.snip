@@ -10,5 +10,5 @@ cd $PBS_O_WORKDIR
 
 module load sharpen
 
-aprun -n 48 ./sharpen
+aprun -n 48 -N 24 ./sharpen
 ```
