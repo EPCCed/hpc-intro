@@ -130,8 +130,6 @@ Anything following the `{{ site.sched_comment }}` comment is interpreted as an
 instruction to the scheduler.
 
 > ## The clever # trick ...
->
-
 > The use of `{{ site.sched_comment }}` to denote commands to the
 > scheduler is a very neat (and commonly used in Unix) trick which has
 > a number of useful effects:
