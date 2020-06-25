@@ -2,10 +2,21 @@ Let's take a closer look at the `gcc` module.
 GCC is an extremely widely used C/C++/Fortran compiler.
 Lots of software is dependent on the GCC version, 
 and might not compile or run if the wrong version is loaded.
-In this case, there are three different versions: `gcc/6.2.0`, `gcc/6.3.0` and `gcc/7.2.0`.
-How do we load each copy and which copy is the default?
+There are many different versions and subversions: `gcc/4.8.1`, `gcc/6.3.0`, `gcc/7.3.0`, ...
+How do we know what is available and which copy is the default?
 
-In this case, `gcc/6.2.0` has a `(default)` next to it.
+You can look at the availabilty of different versions:
+```
+{{ site.host_prompt }} module avail gcc
+```
+{: .bash}
+```
+------------------------------- /opt/modulefiles -------------------------------
+gcc/4.8.1          gcc/5.1.0          gcc/6.3.0(default)
+gcc/4.9.2          gcc/5.3.0          gcc/7.2.0
+gcc/4.9.3          gcc/6.1.0          gcc/7.3.0
+```
+In this case, `gcc/6.3.0` has a `(default)` next to it.
 This indicates that it is the default - 
 if we type `module load gcc`, this is the copy that will be loaded.
 
@@ -15,7 +26,7 @@ if we type `module load gcc`, this is the copy that will be loaded.
 ```
 {: .bash}
 ```
-gcc (GCC) 6.2.0
+gcc (GCC) 6.3.0 20161221 (Cray Inc.)
 Copyright (C) 2016 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -24,16 +35,15 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 So how do we load the non-default copy of a software package?
 In this case, the only change we need to make is be more specific about the module we are loading.
-There are three GCC modules:  `gcc/6.2.0`, `gcc/6.3.0` and `gcc/7.2.0`
 To load a non-default module, we need to make add the version number after the `/` in our `module load` command
 
 ```
-{{ site.host_prompt }} module load gcc/7.2.0
+{{ site.host_prompt }} module load gcc/7.3.0
 ```
 {: .bash}
 ```
-gcc/7.2.0(17):ERROR:150: Module 'gcc/7.2.0' conflicts with the currently loaded module(s) 'gcc/6.2.0'
-gcc/7.2.0(17):ERROR:102: Tcl command execution failed: conflict gcc
+gcc/7.3.0(3):ERROR:150: Module 'gcc/7.3.0' conflicts with the currently loaded module(s) 'gcc/6.3.0'
+gcc/7.3.0(3):ERROR:102: Tcl command execution failed: conflict gcc
 ```
 {: .output}
 
@@ -43,12 +53,12 @@ default version before we load the new version.
 
 ```
 {{ site.host_prompt }} module unload gcc
-{{ site.host_prompt }} module load gcc/7.2.0
+{{ site.host_prompt }} module load gcc/7.3.0
 {{ site.host_prompt }} gcc --version
 ```
 {: .bash}
 ```
-gcc (GCC) 7.2.0
+gcc (GCC) 7.3.0 20180125 (Cray Inc.)
 Copyright (C) 2017 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -56,7 +66,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 {: .output}
 
 
-We now have successfully switched from GCC 6.2.0 to GCC 7.2.0.
+We now have successfully switched from GCC 6.3.0 to GCC 7.3.0.
 
 As switching between different versions of the same module is often used you can use `module swap` 
 rather than unloading one version before loading another. The equivalent of the steps above would be:
@@ -65,17 +75,17 @@ rather than unloading one version before loading another. The equivalent of the 
 {{ site.host_prompt }} module purge
 {{ site.host_prompt }} module load gcc
 {{ site.host_prompt }} gcc --version
-{{ site.host_prompt }} module swap gcc gcc/7.2.0
+{{ site.host_prompt }} module swap gcc gcc/7.3.0
 {{ site.host_prompt }} gcc --version
 ```
 {: .bash}
 ```
-gcc (GCC) 6.2.0
+gcc (GCC) 6.3.0 20161221 (Cray Inc.)
 Copyright (C) 2016 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-gcc (GCC) 7.2.0
+gcc (GCC) 7.3.0 20180125 (Cray Inc.)
 Copyright (C) 2017 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -83,4 +93,3 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 {: .output}
 
 This achieves the same result as unload followed by load but in a single step.
-
