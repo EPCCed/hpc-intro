@@ -15,7 +15,7 @@ keypoints:
 - "The scheduler handles how compute resources are shared between users."
 - "Everything you do should be run through the scheduler."
 - "A job is just a shell script."
-- "If in doubt, request more resources than you will need."
+- "If in doubt, request slightly more resources than you will need."
 ---
 
 ## Job scheduler
@@ -331,5 +331,7 @@ As for our other jobs, we launch using the `{{ site.sched_submit }}` command.
 {: .output}
 
 {% include /snippets/13/parallel_challenge.snip %}
+
+{% include /snippets/13/parallel_challenge2.snip %}
 
 {% include links.md %}
