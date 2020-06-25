@@ -1,0 +1,19 @@
+> ## Filesystem on ARCHER
+> At this point it is important to point out a quirk of the ARCHER system. It has two *separate* filesystems: `/home/` and `/work/`.
+>
+> * `/home/` is meant for small files such as source code, and is the
+>    filesystem that you are on when you log in
+> *  `/work` is a much larger and faster filesystem, meant for production
+>    runs and storing large datasets
+>
+> The `/home/` filesytem **is not mounted on the compute nodes**
+> meaning that programs run in the batch queues cannot read from or
+> write to files in your home directory. This has not been a problem
+> so far as none of our programs have done file input or
+> output. However, the parallel program we will run here reads and
+> writes large images.
+>
+> * When you log in, you will be in your home directory {{ site.host_homedir }}
+> * Before you run real programs on ARCHER, you **must change directory** to
+>   {{ site.host_workdir }}
+{: .callout}

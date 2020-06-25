@@ -1,0 +1,33 @@
+> ## Running parallel jobs
+>
+> You will see in the job output that information is displayed about
+> where each MPI process is running, in particular which node it is
+> on.
+> 
+> Modify the sharpen script that you used above to still use 3 nodes,
+> but to only use a total of 48 processes with 16 processes per
+> node. Check the output file to ensure that you understand the job
+> distribution.
+>
+> > ## Solution
+> >
+> > ```
+> > #!/bin/bash
+> > #PBS -N mpisharpen
+> > #PBS -l select=3
+> > #PBS -l walltime=00:10:00
+> > #PBS -A tc011
+> >
+> > # Change to the directory that the job was submitted from
+> > cd $PBS_O_WORKDIR
+> > 
+> > module load epcc-training/sharpen
+> > 
+> > aprun -n 48 -N 16 ./sharpen
+> > ```
+> {: .solution}
+>
+> What do you think the job distribution will be if you run 48
+> processes with 21 processes per node? Does this agree with what you
+> see in practice?
+{: .challenge}
