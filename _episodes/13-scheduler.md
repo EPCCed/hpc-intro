@@ -65,7 +65,7 @@ run as a test.
 >
 > echo 'This script is running on:'
 > hostname
-> sleep 120
+> sleep 60
 > ```
 > {: .bash}
 {: .challenge}
@@ -102,12 +102,12 @@ Sometimes our jobs might need to wait in a queue ("PENDING") or have an error. T
 our job's status is with `{{ site.sched_status }}`. Of course, running `{{ site.sched_status }}` repeatedly to check on things can be
 a little tiresome. To see a real-time view of our jobs, we can use the `watch` command. `watch`
 reruns a given command at 2-second intervals. This is too frequent, and will likely upset your system
-administrator. You can change the interval to a more reasonable value, for example 60 seconds, with the
-`-n 60` parameter. Let's try using it to monitor another job.
+administrator. You can change the interval to a more reasonable value, for example 20 seconds, with the
+`-n 20` parameter. Let's try using it to monitor another job.
 
 ```
 {{ site.host_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options }} example-job.sh
-{{ site.host_prompt }} watch -n 60 {{ site.sched_status }} {{ site.sched_flag_user }}
+{{ site.host_prompt }} watch -n 20 {{ site.sched_status }} {{ site.sched_flag_user }}
 ```
 {: .bash}
 
@@ -118,16 +118,36 @@ from the queue. Press `Ctrl-C` when you want to stop the `watch` command.
 
 The job we just ran used all of the scheduler's default options. In a real-world scenario, that's
 probably not what we want. The default options represent a reasonable minimum. Chances are, we will
-need more cores, more memory, more time, among other special considerations. To get access to these
+need more cores and more time. To get access to these
 resources we must customize our job script.
 
-Comments in UNIX (denoted by `#`) are typically ignored. But there are exceptions. For instance the
+Comments in UNIX (denoted by `#`) are typically treated as comments and ignored. But there are exceptions. For instance the
 special `#!` comment at the beginning of scripts specifies what program should be used to run it
 (typically `/bin/bash`). Schedulers like {{ site.workshop_sched_name }} also have a special comment
 used to denote special scheduler-specific options. Though these comments differ from scheduler to
-scheduler, {{ site.workshop_sched_name }}'s special comment is `{{ site.sched_comment }}`.
+scheduler, {{ site.sched_name }}'s special comment is `{{ site.sched_comment }}`.
 Anything following the `{{ site.sched_comment }}` comment is interpreted as an
 instruction to the scheduler.
+
+> ## The clever # trick ...
+>
+
+> The use of `{{ site.sched_comment }}` to denote commands to the
+> scheduler is a very neat (and commonly used in Unix) trick which has
+> a number of useful effects:
+>
+> - You can specify commands that are interpreted at submission time
+>   (e.g. how much wallclock time you require) and commands that are
+>   interpreted much later at run time (e.g. the program you want to
+>   execute) in *the same script*.
+> - If you are using different HPC machines with different schedulers,
+>   you can have commands for both schedulers in the same script and
+>   the ones that aren't relevant will simply be ignored as commments
+> - You can run the script interactively on the login nodes for
+>   debugging purposes (e.g. to check that all the input files are
+>   copied across properly) and the scheduler commands will be ignored
+>   as comment.
+{: .callout}
 
 Let's illustrate this by example. By default, a job's name is the name of the script, but the
 `{{ site.sched_flag_name }}` option can be used to change the name of a job.
@@ -140,7 +160,7 @@ Submit the following job (`{{ site.sched_submit }} {{ site.sched_submit_options 
 
 echo 'This script is running on:'
 hostname
-sleep 120
+sleep 60
 ```
 
 ```
@@ -160,7 +180,6 @@ Fantastic, we've successfully changed the name of our job!
 > constantly check on the status of our job with `{{ site.sched_status }}`. Looking at the
 > man page for `{{ site.sched_submit }}`, can you set up our test job to send you an email
 > when it finishes?
-> >
 {: .challenge}
 
 ### Resource requests
@@ -186,18 +205,17 @@ about how to make sure that you're using resources effectively in a later episod
 {% include /snippets/13/env_challenge.snip %}
 
 Resource requests are typically binding. If you exceed them, your job will be killed. Let's use
-walltime as an example. We will request 30 seconds of walltime, and attempt to run a job for two
-minutes.
+walltime as an example. We will request 30 seconds of walltime, and attempt to run a job for one minute.
 
 ```
 {% include /snippets/13/long_job.snip %}
 ```
 
-Submit the job and wait for it to finish. Once it is has finished, check the log file.
+Submit the job and wait for it to finish. Once it is has finished, check the error file.
 
 ```
 {{ site.host_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options }} example-job.sh
-{{ site.host_prompt }} watch -n 60 {{ site.sched_status }} {{ site.sched_flag_user }}
+{{ site.host_prompt }} watch -n 20 {{ site.sched_status }} {{ site.sched_flag_user }}
 {% include /snippets/13/long_job_cat.snip %}
 ```
 {: .bash}
@@ -215,6 +233,17 @@ to the requested resources or kill the job outright. Other jobs on the node will
 This means that one user cannot  mess up the experience of others, the only jobs affected by a
 mistake in scheduling will be their
 own.
+
+> Although your job will be killed if it exceeds the selected runtime,
+> a job that completes within the time limit is only charged for the
+> time it actually used. However, you should always try and specify a
+> wallclock limit that is close to (but greater than!) the expected
+> runtime as this will enable your job to be scheduled more
+> quickly. If you say your job will run for an hour, the scheduler has
+> to wait until a full hour becomes free on the machine. If it only
+> runs for 5 minutres, you could have set a limit of 10 minutes and it
+> might have been run earlier in the gaps between other users' jobs.
+{: .callout}
 
 ## Cancelling a job
 

@@ -133,9 +133,10 @@ the computer's memory. Disk refers to all storage that can be accessed like a fi
 generally storage that can hold data permanently, i.e. data is still there even if the computer has
 been restarted.
 
-On smaller systems there will be a separate physical disk on each
-node, just like the hard drive on your own laptop; on larger systems,
-all the nodes share storage on a central disk storage system.
+On smaller systems there may be a separate physical disk on each node,
+just like the hard drive on your own laptop; large systems tend to
+have diskless nodes. However, on all systems the nodes will have
+access to a shared central disk storage system.
 
 {% include figure.html url="" max-width="40%" file="/fig/node_anatomy.png" alt="Node anatomy" caption="" %}
 
