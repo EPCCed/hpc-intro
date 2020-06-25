@@ -291,7 +291,7 @@ tasks as a one-off with `{{ site.sched_interactive }}`.
 {% include /snippets/13/interactive_example.snip %}
 
 ## Running parallel jobs using MPI
-
+{% include /snippets/13/filesytem_issues.snip %}
 As we have already seen, the power of HPC systems comes from *parallelism*, i.e. having lots of
 processors/disks etc. connected together rather than having more powerful components than your
 laptop or workstation. Often, when running research programs on HPC you will need to run a
