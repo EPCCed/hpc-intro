@@ -338,6 +338,23 @@ As for our other jobs, we launch using the `{{ site.sched_submit }}` command.
 ```
 {: .output}
 
+If your job runs correctly, you should see an output file called
+`sharpened.pgm`
+
+```
+{{ site.host_prompt }} ls -l *.pgm
+```
+{: .bash}
+```
+-rw-r--r-- 1 yourUsername tc011 1762743 Jun 26 17:29 fuzzy.pgm
+-rw------- 1 yourUsername tc011 1678630 Jun 26 17:33 sharpened.pgm
+```
+{: .output}
+
+If you only see `fuzzy.pgm` and not `sharpened.pgm` then look at
+both the output and error files from {{ site.sched_name }} to work out
+what went wrong.
+
 {% include /snippets/13/parallel_challenge.snip %}
 
 {% include /snippets/13/parallel_challenge2.snip %}

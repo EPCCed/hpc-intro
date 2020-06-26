@@ -127,7 +127,47 @@ use `{{ site.sched_hist }} {{ site.sched_flag_histdetail }}` with the job ID, e.
 ```
 {: .language-bash}
 ```
-TODO: include queue listing output
+Job Id: 7099670.sdb
+    Job_Name = sharpen
+    Job_Owner = tc011dsh@eslogin1-ldap
+    resources_used.cpupercent = 0
+    resources_used.cput = 00:00:00
+    resources_used.mem = 0kb
+    resources_used.ncpus = 24
+    resources_used.vmem = 0kb
+    resources_used.walltime = 00:00:11
+    job_state = F
+    queue = R7090548
+    server = sdb
+    Account_Name = tc011
+    Checkpoint = u
+    ctime = Fri Jun 26 17:32:35 2020
+    Error_Path = eslogin1-ldap:/work/tc011/tc011/tc011dsh/sharpen.e7099670
+    exec_host = mom2/177*24
+    exec_vnode = (archer_2907:ncpus=24)
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = a
+    mtime = Fri Jun 26 17:33:17 2020
+    Output_Path = eslogin1-ldap:/work/tc011/tc011/tc011dsh/sharpen.o7099670
+    Priority = 0
+    qtime = Fri Jun 26 17:32:35 2020
+    Rerunable = False
+    Resource_List.mpiprocs = 24
+    Resource_List.ncpus = 24
+    Resource_List.nodect = 1
+    Resource_List.place = free
+    Resource_List.select = 1:mpiprocs=24:ompthreads=1:serial=false:ppn=false:vn
+        type=cray_compute
+    Resource_List.walltime = 00:05:00
+    stime = Fri Jun 26 17:33:02 2020
+    session_id = 13597
+    jobdir = /home/tc011/tc011/tc011dsh
+    substate = 92
+    Variable_List = PBS_O_SYSTEM=Linux,NUM_PES=24,PBS_O_SHELL=/bin/bash,
+        PBS_O_HOME=/home/tc011/tc011/tc011dsh,PBS_O_LOGNAME=tc011dsh,
+    ...
 ```
 {: .output}
 
