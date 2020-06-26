@@ -15,11 +15,11 @@ By the end of this workshop, students will know how to:
 * Submit and manage jobs on a cluster using a scheduler, transfer files, and use software through
   environment modules.
 
-> ## Note
+<!-- > ## Note
 > 
 > - This is the draft HPC Carpentry release. Comments and feedback are welcome.
 > - Link to [hpc-shell](https://hpc-carpentry.github.io/hpc-shell/) when that is complete.
-{: .callout}
+{: .callout} -->
 
 > ## Prerequisites
 >
