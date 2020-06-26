@@ -42,16 +42,15 @@ your password. But watch out, the characters you type are not displayed on the s
 
 You are logging in using a program known as the secure shell or `ssh`. 
 This establishes a temporary encrypted connection between your laptop and `{{ site.host_login }}`.
-The word before the `@` symbol, e.g. `yourUsername` here, is the user account name that Lola has access 
-permissions for on the cluster. 
+The word before the `@` symbol, e.g. `yourUsername` here, is the user account name for which you have access 
+permissions on the cluster. 
 
 > ## Where do I get this `ssh` from ?
 > On Linux and/or macOS, the `ssh` command line utility is almost always pre-installed. Open a
 > terminal and type `ssh --help` to check if that is the case. 
 > 
 > At the time of writing, using openssh on Windows still requires some
-> [manual setup]
-> (https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_overview).
+> [manual setup](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_overview).
 > There are a number of alternatives to this (e.g. [putty](http://www.putty.org), 
 > [bitvise SSH](https://www.bitvise.com/ssh-client-download), 
 > [mRemoteNG](https://mremoteng.org/)) but the simplest to use is probably [MobaXterm](https://mobaxterm.mobatek.net/). As well as enabling command-line access via a terminal, MobaXterm also includes a drag-and-drop file transfer GUI and integrated Unix graphics.
@@ -81,7 +80,7 @@ notice that the current hostname is also part of our prompt!)
 
 You may see a slightly different name from the one above, e.g. there
 might be a different numerical suffix. This is because your ssh
-connection may be directed to a range different computers to balance
+connection may be directed to a range of different computers to balance
 the load with many interactive users on large clusters.
 
 ## Nodes
@@ -218,7 +217,7 @@ be telling the whole truth!
 > very close to what us 10-fingered humans consider to be a nice
 > round number of `10^3` = 1000.
 >
-> Computing would all seem a lot simpler if evolution had given us all 3 fingers and a thumb ...
+> Computing would seem a lot simpler if evolution had given us all 3 fingers and a thumb ...
 {: .callout}
 
 > ## Differences Between Nodes

@@ -58,7 +58,7 @@ Let's dissect what resources programs running on a laptop require:
 - the keyboard and/or touchpad is used to tell the computer what to do (**Input**)
 - the internal computing resources **Central Processing Unit (CPU_** and **Memory** are used to perform calculations
 - the **Screen Display** depicts progress and results (**Output**)
-- alternatvely, both input and output can come from data stored on **Disk** or on a **Network**
+- alternatvely, both input and output can be done using data stored on **Disk** or on a **Network**
 
 Schematically, this can be reduced to the following:
 

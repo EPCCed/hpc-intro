@@ -75,7 +75,7 @@ distinction between running the job through the scheduler and just "running it".
 to the scheduler, we use the `{{ site.sched_submit }}` command.
 
 ```
-{{ site.host_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options }} example-job.sh
+{{ site.host_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options_long }} example-job.sh
 ```
 {: .bash}
 ```
@@ -98,7 +98,7 @@ the *queue*. To check on our job's status, we check the queue using the command
 {: .output}
 
 We can see all the details of our job, most importantly that it is in the "R" or "RUNNING" state.
-Sometimes our jobs might need to wait in a queue ("PENDING") or have an error. The best way to check
+Sometimes our jobs might need to wait in a queue ("Q" or "QUEUED") or have an error. The best way to check
 our job's status is with `{{ site.sched_status }}`. Of course, running `{{ site.sched_status }}` repeatedly to check on things can be
 a little tiresome. To see a real-time view of our jobs, we can use the `watch` command. `watch`
 reruns a given command at 2-second intervals. This is too frequent, and will likely upset your system
@@ -106,7 +106,7 @@ administrator. You can change the interval to a more reasonable value, for examp
 `-n 20` parameter. Let's try using it to monitor another job.
 
 ```
-{{ site.host_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options }} example-job.sh
+{{ site.host_prompt }} {{ site.sched_submit }} {{ site.sched_submit_options_long }} example-job.sh
 {{ site.host_prompt }} watch -n 20 {{ site.sched_status }} {{ site.sched_flag_user }}
 ```
 {: .bash}
@@ -116,18 +116,20 @@ from the queue. Press `Ctrl-C` when you want to stop the `watch` command.
 
 ## Customising a job
 
-The job we just ran used all of the scheduler's default options. In a real-world scenario, that's
+The job we just ran had a lot of command-line options and used all of the scheduler's default options. In a real-world scenario, that's
 probably not what we want. The default options represent a reasonable minimum. Chances are, we will
 need more cores and more time. To get access to these
 resources we must customize our job script.
 
 Comments in UNIX (denoted by `#`) are typically treated as comments and ignored. But there are exceptions. For instance the
 special `#!` comment at the beginning of scripts specifies what program should be used to run it
-(typically `/bin/bash`). Schedulers like {{ site.workshop_sched_name }} also have a special comment
+(typically `/bin/bash`). Schedulers like {{ site.sched_name }} also have a special comment
 used to denote special scheduler-specific options. Though these comments differ from scheduler to
 scheduler, {{ site.sched_name }}'s special comment is `{{ site.sched_comment }}`.
-Anything following the `{{ site.sched_comment }}` comment is interpreted as an
-instruction to the scheduler.
+Anything following the `{{ site.sched_comment }}` comment is
+interpreted as an instruction to the scheduler. These options can also
+be passed as command-line arguments, but it is often more convenient
+to have them hard-wired into the job script.
 
 > ## The clever # trick ...
 > The use of `{{ site.sched_comment }}` to denote commands to the
@@ -155,6 +157,9 @@ Submit the following job (`{{ site.sched_submit }} {{ site.sched_submit_options 
 ```
 #!/bin/bash
 {{ site.sched_comment }} {{ site.sched_flag_name }} new_name
+#PBS -A tc011
+#PBS -l walltime=00:10:00
+#PBS -l select=1
 
 echo 'This script is running on:'
 hostname
@@ -241,7 +246,7 @@ own.
 > quickly.
 > If you say your job will run for an hour, the scheduler has
 > to wait until a full hour becomes free on the machine. If it only ever
-> runs for 5 minutres, you could have set a limit of 10 minutes and it
+> runs for 5 minutes, you could have set a limit of 10 minutes and it
 > might have been run earlier in the gaps between other users' jobs.
 {: .callout}
 

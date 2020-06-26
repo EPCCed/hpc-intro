@@ -9,6 +9,7 @@
 cd $PBS_O_WORKDIR
 
 module load epcc-training/sharpen
+cp $SHARPEN_DATA/fuzzy.pgm .
 
-aprun -n 48 -N 24 ./sharpen
+aprun -n 48 -N 24 sharpen
 ```
