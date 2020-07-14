@@ -1,4 +1,4 @@
-> ## Running parallel jobs
+> ## Configuring parallel jobs
 >
 > You will see in the job output that information is displayed about
 > where each MPI process is running, in particular which node it is
@@ -22,8 +22,9 @@
 > > cd $PBS_O_WORKDIR
 > > 
 > > module load epcc-training/sharpen
-> > 
-> > aprun -n 48 -N 16 ./sharpen
+> > cp $SHARPEN_DATA/fuzzy.pgm .
+> >
+> > aprun -n 48 -N 16 sharpen
 > > ```
 > {: .solution}
 >

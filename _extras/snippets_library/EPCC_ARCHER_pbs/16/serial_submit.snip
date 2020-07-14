@@ -1,11 +1,13 @@
 > > #!/bin/bash
 > > #PBS -N sharpen
-> > #PBS -l select=1:ncpus=36
-> > #PBS -l place=scatter:excl
-> > #PBS -l walltime=0:15:0
-> > #PBS -A t01
-> > 
-> > module load sharpen
+> > #PBS -l select=1
+> > #PBS -l walltime=0:5:0
+> > #PBS -A tc011
+> >
+> > module load epcc-training/sharpen
+> >
+> > # Change to the directory that the job was submitted from
+> > cd $PBS_O_WORKDIR
 > >
 > > # Run application using a single process (i.e. in serial)
-> > mpirun -n 1 sharpen
+> > aprun -n 1 sharpen
