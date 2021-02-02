@@ -8,10 +8,10 @@
 > | 2          |                      |               |                |                     |
 > | 4          |                      |               |                |                     |                   
 > | 8          |                      |               |                |                     | 
-> | 18         |                      |               |                |                     |
-> | 36         |                      |               |                |                     |
-> | 72         |                      |               |                |                     |             
-> | 144        |                      |               |                |                     |
+> | 12         |                      |               |                |                     |
+> | 24         |                      |               |                |                     |
+> | 48         |                      |               |                |                     |             
+> | 96        |                      |               |                |                     |
 >
 > Given your results, try to answer the following questions:
 > 
@@ -28,14 +28,14 @@
 > >
 > > | Cores      | Overall run time (s) | Ideal speedup | Actual speedup | Parallel efficiency |
 > > |------------|----------------------|---------------|----------------|---------------------|
-> > | 1 (serial) |                      |               |                |                     |
-> > | 2          |                      |               |                |                     |
-> > | 4          |                      |               |                |                     |                   
-> > | 8          |                      |               |                |                     | 
-> > | 18         |                      |               |                |                     |
-> > | 36         |                      |               |                |                     |
-> > | 72         |                      |               |                |                     |             
-> > | 144        |                      |               |                |                     |
+> > |	1	|	5.544246	|	1	|	1	|	100%	|
+> > |	2	|	2.917452	|	2	|	1.90037265394598	|	95%	|
+> > |	4	|	1.609339	|	4	|	3.44504545033706	|	86%	|
+> > |	8	|	0.924753	|	8	|	5.99538038806038	|	75%	|
+> > |	12	|	0.665114	|	12	|	8.33578303869713	|	69%	|
+> > |	24	|	0.40722		|	24	|	13.614866656844	|	57%	|
+> > |	48	|	0.315862	|	48	|	17.5527477189406	|	37%	|
+> > |	96	|	0.239602	|	96	|	23.1393978347426	|	24%	|
 > >
 > > ### What is the core count where you get the **most** efficient use of resources?
 > >
@@ -50,7 +50,7 @@
 > >
 > > ### What is the core count where you get the fastest solution, irrespective of efficiency?
 > >
-> > 144 cores gives the fastest time to solution.
+> > 96 cores gives the fastest time to solution.
 > >
 > > The fastest time to solution does not often make the most efficient use of resources so 
 > > to use this option, you may end up wasting your resources. Sometimes, when there is 
@@ -59,8 +59,8 @@
 > >
 > > ### What do you think a good core count choice would be for this application to use?
 > > 
-> > 36 cores is probably the most efficient number of cores to use with a 
-> > parallel efficiency of 70%.
+> > 24 cores is probably the most efficient number of cores to use with a 
+> > parallel efficiency of 57%.
 > >
 > > Usually, the best choice is one that delivers good parallel efficiency with an acceptable
 > > time to solution. Note that *acceptable time to solution* differs depending on circumstances
@@ -70,4 +70,29 @@
 > > worse parallel efficiency may also be useful if the time to solution is an overriding factor.
 > >
 > {: .solution}
+> ## Excluding the IO overhead
+>
+> Now use your *Calculation times* (not the overall run times) to
+> compute the speedup and efficiency. How well do you think the
+> calculation part has been parallelised?
+> > ## Solution
+> >
+> > The table below gives example results for {{ site.host_name }} based on the example 
+> > runtimes given in the solution above.
+> >
+> > |	1	|	5.410836	|	1	|	1	|	100%	|
+> > |	2	|	2.804676	|	2	|	1.92921963178635	|	96%	|
+> > |	4	|	1.48881	|	4	|	3.63433614766156	|	91%	|
+> > |	8	|	0.793237	|	8	|	6.82120980236676	|	85%	|
+> > |	12	|	0.530394	|	12	|	10.2015407414111	|	85%	|
+> > |	24	|	0.268055	|	24	|	20.1855440114902	|	84%	|
+> > |	48	|	0.136599	|	48	|	39.6110952495992	|	83%	|
+> > |	96	|	0.071997	|	96	|	75.1536314013084	|	78%	|
+> >
+> > ![sharpen speedup]({{ site.url }}{{ site.baseurl }}/fig/speedup.png)
+> > ![sharpen efficiency]({{ site.url }}{{ site.baseurl }}/fig/efficiency.png)
+> > ![sharpen efficiency log x-scale)]({{ site.url }}{{ site.baseurl }}/fig/efficiencylogcpu.png)
+> {: .solution}
 {: .challenge}
+
+wibble
