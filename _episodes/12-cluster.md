@@ -33,7 +33,7 @@ purpose, and are used to accomplish tasks that might otherwise be too big for an
 
 Go ahead and log in to the cluster: {{ site.host_name }} at {{ site.host_location }}.
 ```
-{{ site.local_prompt }} ssh yourUsername@{{ site.host_login }}
+{{ site.local_prompt }} ssh -XY yourUsername@{{ site.host_login }}
 ```
 {: .bash}
 
@@ -44,6 +44,12 @@ You are logging in using a program known as the secure shell or `ssh`.
 This establishes a temporary encrypted connection between your laptop and `{{ site.host_login }}`.
 The word before the `@` symbol, e.g. `yourUsername` here, is the user account name for which you have access 
 permissions on the cluster. 
+
+The options `-XY` ensure that any Unix graphical output from ARCHER
+(e.g. if you run a GUI, look at an image or plot a graph) are sent
+back to your own laptop. You need to specify these options explicitly,
+except if you are using MobaXterm when (like most things) it is set up
+automatically.
 
 > ## Where do I get this `ssh` from ?
 > On Linux and/or macOS, the `ssh` command line utility is almost always pre-installed. Open a

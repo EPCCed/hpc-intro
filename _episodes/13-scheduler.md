@@ -26,7 +26,7 @@ run where and when.
 
 The following illustration compares these tasks of a job scheduler to a waiter in a restaurant.
 If you can relate to an instance where you had to wait for a while in a queue to get in to a 
-popular restaurant, then you may now understand why sometimes your job do not start instantly
+popular restaurant, then you may now understand why sometimes your jobs do not start instantly
 as in your laptop.
 
 {% include figure.html max-width="75%" file="/fig/restaurant_queue_manager.svg"
@@ -202,7 +202,7 @@ about how to make sure that you're using resources effectively in a later episod
 
 > ## Submitting resource requests
 >
-> Submit a job that will use 1 full node and 5 minutes of walltime.
+> Submit a job that will use 2 full nodes and 10 minutes of walltime.
 {: .challenge}
 
 {% include /snippets/13/env_challenge.snip %}
@@ -266,7 +266,7 @@ walltime so that it runs long enough for you to cancel it before it is killed!).
 ```
 {: .output}
 
-Now cancel the job with it's job number. Absence of any job info indicates that the job has been
+Now cancel the job with its job number. Absence of any job info indicates that the job has been
 successfully cancelled.
 
 ```
